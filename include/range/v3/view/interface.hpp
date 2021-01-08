@@ -98,6 +98,8 @@ namespace ranges
             using invoke = T;
         };
 
+#ifndef RANGES_V3_DISABLE_IO
+
         template<typename Stream, typename Rng>
         Stream & print_rng_(Stream & sout, Rng & rng)
         {
@@ -117,6 +119,8 @@ namespace ranges
             sout << ']';
             return sout;
         }
+#endif
+
     } // namespace detail
     /// \endcond
 
@@ -506,6 +510,8 @@ namespace ranges
             return Slice{}(detail::move(derived()), offs.from, offs.to);
         }
     private:
+
+#ifndef RANGES_V3_DISABLE_IO
         /// \brief Print a range to an ostream
         template<bool True = true>
         friend auto operator<<(std::ostream & sout, Derived const & rng)
@@ -533,6 +539,7 @@ namespace ranges
         {
             return detail::print_rng_(sout, rng);
         }
+#endif
     };
 
     namespace cpp20
